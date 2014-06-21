@@ -8,7 +8,7 @@ import java.io.IOException;
 /**
  * Created by Noy on 6/21/2014.
  */
-@Command("hey there")
+@Command("hello")
 public class TestCommand extends AbstractIRCBot {
 
 

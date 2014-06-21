@@ -11,26 +11,31 @@ import java.io.IOException;
  */
 public abstract class AbstractIRCBot extends PircBot {
 
-
     public AbstractIRCBot(String name, String server, Integer port, String channel) throws IrcException, IOException {
         this.setName(name);
         this.connect(server, port);
         this.joinChan(channel);
     }
 
-//    private void start(String msg, String channel) {
-//        Command annotation = getClass().getAnnotation(Command.class);
-//        if (msg.equalsIgnoreCase(annotation.value())) {
-//            sendMsg(channel, "testing");
-//        }
-//    }
-
     protected abstract void onCommand(String channel, String sender, String login, String hostname);
 
     @Override
     protected final void onMessage(String channel, String sender, String login, String hostname, String message) {
+        hasPermission(channel, sender, message);
+    }
+
+    private boolean hasPermission(String channel, String sender, String msg) {
         Command annotation = getClass().getAnnotation(Command.class);
-        if (message.equalsIgnoreCase(annotation.value())) onCommand(channel, sender, login, hostname);
+        if (msg.equalsIgnoreCase(annotation.value())) {
+            if (sender.equalsIgnoreCase("Yes")) {
+                onCommand(channel, sender, null, null);
+                return true;
+            } else {
+                sendMessage(channel, "You do not have permission!");
+                return true;
+            }
+        }
+        return true;
     }
 
     @Override
@@ -63,5 +68,9 @@ public abstract class AbstractIRCBot extends PircBot {
 
     protected void onOpUser(String s, String s2, String s3, String s4, String s5) {
 
+    }
+
+    protected final void setTopicForChannel(String channel, String topic) {
+        this.setTopic(channel, topic);
     }
 }
