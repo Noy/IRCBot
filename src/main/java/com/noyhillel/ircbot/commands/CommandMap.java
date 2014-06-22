@@ -26,7 +26,7 @@ public class CommandMap {
         try {
             commands.get(commandName).onCommand(context, args);
         } catch (PermissionException e) {
-            //TODO handle permission exception
+            context.sendMessage("You do not have permission to perform this command");
         }
     }
 }

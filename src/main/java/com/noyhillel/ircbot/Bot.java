@@ -7,9 +7,11 @@ import joptsimple.OptionSet;
 import org.jibble.pircbot.IrcException;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 public class Bot {
     public static void main(String[] args) throws IOException, IrcException {
+        print("Starting the bot..");
         OptionParser optionParser = new OptionParser();
         ArgumentAcceptingOptionSpec<String> nickOption = optionParser.accepts("nick").withRequiredArg();
         ArgumentAcceptingOptionSpec<String> channelsOption = optionParser.accepts("channels").withRequiredArg();
@@ -29,7 +31,14 @@ public class Bot {
             }
         }
         IRCConnection connection = new IRCConnection(nick, server, port, channels);
-        //TODO register commands
         connection.getCommandMap().registerCommand(new TestCommand());
+        print("Joined as: " + nick + "\nTo server: " + server + "\nChannels: " + Arrays.toString(channels), "At port: " + port);
+    }
+
+    @SafeVarargs
+    public static <T> void print(T... args) {
+        for(T t : args) {
+            System.out.println(t);
+        }
     }
 }
