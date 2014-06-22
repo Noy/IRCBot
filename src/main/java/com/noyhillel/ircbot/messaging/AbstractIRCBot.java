@@ -6,6 +6,8 @@ import org.jibble.pircbot.IrcException;
 import org.jibble.pircbot.PircBot;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by Noy on 6/21/2014.
@@ -14,12 +16,17 @@ public abstract class AbstractIRCBot extends PircBot implements Permission {
 
     private final String name;
 
+    private String permissionMessage;
+
     public AbstractIRCBot(String name, String server, Integer port, String channel, String permName) throws IrcException, IOException {
         this.setName(name);
         this.connect(server, port);
         this.joinChan(channel);
         this.name = permName;
+        this.permissionMessage = printPermissionMessage();
     }
+
+    protected abstract String printPermissionMessage();
 
     protected abstract void onCommand(String channel, String sender, String login, String hostname);
 
@@ -28,25 +35,34 @@ public abstract class AbstractIRCBot extends PircBot implements Permission {
         hasPermission(channel, sender, message);
     }
 
+    @Override
+    public String permissionName() {
+        return this.name;
+    }
+
+    @Override
+    public String permissionMessage() {
+        return permissionMessage;
+    }
+
+    @Override
+    protected final void onOp(String s, String s2, String s3, String s4, String s5) {
+        onOpUser(s, s2, s3, s4, s5);
+    }
+
     private boolean hasPermission(String channel, String sender, String msg) {
         Command annotation = getClass().getAnnotation(Command.class);
-        if (msg.equalsIgnoreCase(annotation.value())) {
-            if (sender.equalsIgnoreCase(name())) {
+        if (msg.equalsIgnoreCase("!" + annotation.value())) {
+            if (sender.equalsIgnoreCase(permissionName())) {
                 onCommand(channel, sender, null, null);
                 return true;
             } else {
-                sendMessage(channel, "You do not have permission!");
+                sendMessage(channel, permissionMessage);
                 return true;
             }
         }
         return true;
     }
-
-    @Override
-    protected final void onOp(String s, String s2, String s3, String s4, String s5) {
-        onOpUser(s,s2,s3,s4,s5);
-    }
-
 
     protected final void kill(String channel, String msg) {
         this.sendMsg(channel, msg);
@@ -78,8 +94,7 @@ public abstract class AbstractIRCBot extends PircBot implements Permission {
         this.setTopic(channel, topic);
     }
 
-    @Override
-    public String name() {
-        return this.name;
+    protected void onUserQuit(String channel, String sender, String login, String hostname) {
+        super.onQuit(channel, sender, login, hostname);
     }
 }

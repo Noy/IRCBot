@@ -12,9 +12,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Command {
 
-    /**
-     * The command value
-     * @return null
-     */
     String value();
 }
