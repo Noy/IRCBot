@@ -12,6 +12,7 @@ import java.util.Scanner;
 @Log
 public final class Bot {
     public static void main(String[] args) throws IOException, IrcException {
+        print("Starting the bot..");
         OptionParser optionParser = new OptionParser();
         ArgumentAcceptingOptionSpec<String> nickOption = optionParser.accepts("nick").withRequiredArg();
         ArgumentAcceptingOptionSpec<String> channelsOption = optionParser.accepts("channels").withRequiredArg();
@@ -39,6 +40,13 @@ public final class Bot {
         while (true) {
             System.out.println("> ");
             if (penty.nextLine().startsWith("stop")) System.exit(-1);
+        }
+    }
+
+    @SafeVarargs
+    public static <T> void print(T... args) {
+        for(T t : args) {
+            log.info(t.toString());
         }
     }
 }
