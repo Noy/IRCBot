@@ -1,14 +1,16 @@
 package com.noyhillel.ircbot;
 
-import com.noyhillel.ircbot.commands.impl.TestCommand;
 import joptsimple.ArgumentAcceptingOptionSpec;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
+import lombok.extern.java.Log;
 import org.jibble.pircbot.IrcException;
 
 import java.io.IOException;
+import java.util.Scanner;
 
-public class Bot {
+@Log
+public final class Bot {
     public static void main(String[] args) throws IOException, IrcException {
         OptionParser optionParser = new OptionParser();
         ArgumentAcceptingOptionSpec<String> nickOption = optionParser.accepts("nick").withRequiredArg();
@@ -28,8 +30,15 @@ public class Bot {
                 throw new RuntimeException("Invalid port specified");
             }
         }
-        IRCConnection connection = new IRCConnection(nick, server, port, channels);
-        //TODO register commands
-        connection.getCommandMap().registerCommand(new TestCommand());
+        log.info("About to start connection thread!");
+        Thread thread = new Thread(new ConnectionRunnable(nick, server, port, channels));
+        thread.setDaemon(true);
+        thread.start();
+        log.info("Started Connection thread!");
+        Scanner penty = new Scanner(System.in);
+        while (true) {
+            System.out.println("> ");
+            if (penty.nextLine().startsWith("stop")) System.exit(-1);
+        }
     }
 }

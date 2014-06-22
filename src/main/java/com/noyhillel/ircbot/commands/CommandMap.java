@@ -1,15 +1,19 @@
 package com.noyhillel.ircbot.commands;
 
+import lombok.extern.java.Log;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+@Log
 public class CommandMap {
     private final static char IRC_COMMAND_PREFIX = '!';
 
     private final Map<String, CommandHandler> commands = new HashMap<>();
 
     public void registerCommand(CommandHandler commandHandler) {
+        log.info("Registered command " + commandHandler .getName());
         commands.put(commandHandler.getName(), commandHandler);
     }
 
