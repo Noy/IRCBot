@@ -1,6 +1,7 @@
 package com.noyhillel.ircbot.messaging;
 
 import com.noyhillel.ircbot.commands.Command;
+import com.noyhillel.ircbot.commands.Permission;
 import org.jibble.pircbot.IrcException;
 import org.jibble.pircbot.PircBot;
 
@@ -9,12 +10,15 @@ import java.io.IOException;
 /**
  * Created by Noy on 6/21/2014.
  */
-public abstract class AbstractIRCBot extends PircBot {
+public abstract class AbstractIRCBot extends PircBot implements Permission {
 
-    public AbstractIRCBot(String name, String server, Integer port, String channel) throws IrcException, IOException {
+    private final String name;
+
+    public AbstractIRCBot(String name, String server, Integer port, String channel, String permName) throws IrcException, IOException {
         this.setName(name);
         this.connect(server, port);
         this.joinChan(channel);
+        this.name = permName;
     }
 
     protected abstract void onCommand(String channel, String sender, String login, String hostname);
@@ -27,7 +31,7 @@ public abstract class AbstractIRCBot extends PircBot {
     private boolean hasPermission(String channel, String sender, String msg) {
         Command annotation = getClass().getAnnotation(Command.class);
         if (msg.equalsIgnoreCase(annotation.value())) {
-            if (sender.equalsIgnoreCase("Yes")) {
+            if (sender.equalsIgnoreCase(name())) {
                 onCommand(channel, sender, null, null);
                 return true;
             } else {
@@ -72,5 +76,10 @@ public abstract class AbstractIRCBot extends PircBot {
 
     protected final void setTopicForChannel(String channel, String topic) {
         this.setTopic(channel, topic);
+    }
+
+    @Override
+    public String name() {
+        return this.name;
     }
 }

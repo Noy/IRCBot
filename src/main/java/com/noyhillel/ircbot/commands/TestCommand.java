@@ -13,7 +13,7 @@ public class TestCommand extends AbstractIRCBot {
 
 
     public TestCommand() throws IOException, IrcException {
-        super("ChrisThePirillo", "irc.geekshed.net", 6667, "#testing");
+        super("ChrisThePirillo", "irc.geekshed.net", 6667, "#testing", "Yes");
     }
 
     @Override
