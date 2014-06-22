@@ -1,5 +1,6 @@
 package com.noyhillel.ircbot.commands;
 
+
 public abstract class AbstractCommandHandler implements CommandHandler {
 
     @Override
@@ -10,5 +11,4 @@ public abstract class AbstractCommandHandler implements CommandHandler {
     }
 
     protected void handleCommand(CommandContext commandContext, String[] args) {}
-
 }

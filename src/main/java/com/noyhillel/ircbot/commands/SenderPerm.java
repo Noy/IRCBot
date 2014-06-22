@@ -9,5 +9,8 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 public @interface SenderPerm {
 
+    /**
+     * The name of the User which will use the command.
+     */
     String value();
 }

@@ -8,7 +8,7 @@ import java.util.Map;
 
 @Log
 public class CommandMap {
-    private final static char IRC_COMMAND_PREFIX = '!';
+    private final static Character IRC_COMMAND_PREFIX = '!';
 
     private final Map<String, CommandHandler> commands = new HashMap<>();
 
@@ -19,8 +19,8 @@ public class CommandMap {
 
     public void dispatchMessage(CommandContext context, String message) {
         if (message.charAt(0) != IRC_COMMAND_PREFIX) return;
-        String fngm = message.substring(1, message.length());
-        String[] parts = fngm.split(" ");
+        String substring = message.substring(1, message.length());
+        String[] parts = substring.split(" ");
         if (parts.length == 0) return;
         String commandName = parts[0];
         if (!commands.containsKey(commandName)) return;

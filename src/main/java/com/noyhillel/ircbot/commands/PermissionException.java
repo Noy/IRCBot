@@ -1,4 +1,6 @@
 package com.noyhillel.ircbot.commands;
 
-public class PermissionException extends Exception {
+public final class PermissionException extends Exception {
+
+
 }

@@ -14,12 +14,14 @@ import java.io.IOException;
 public final class IRCConnection extends PircBot {
     @Getter private final String nickname;
     @Getter private final CommandMap commandMap;
+    @Getter private static IRCConnection instance;
 
     public IRCConnection(String nick, String server, Integer port, String... channels) throws IrcException, IOException {
         changeNick(nick);
         setName(nick);
         setAutoNickChange(true);
         connect(server, port);
+        IRCConnection.instance = this;
         for (String channel : channels) {
             joinChannel(channel);
         }

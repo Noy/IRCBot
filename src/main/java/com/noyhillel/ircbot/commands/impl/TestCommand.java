@@ -3,7 +3,8 @@ package com.noyhillel.ircbot.commands.impl;
 import com.noyhillel.ircbot.commands.*;
 
 @SenderPerm("Yes")
-public final class TestCommand extends AbstractCommandHandler implements CommandHandler {
+public final class TestCommand extends AbstractCommandHandler {
+
     @Override
     public String getName() {
         return "test";
@@ -11,6 +12,11 @@ public final class TestCommand extends AbstractCommandHandler implements Command
 
     @Override
     public void handleCommand(CommandContext context, String[] args) {
-        context.getConnection().sendMessage(context.getChannel(), "Hello I am slim shady");
+        if (args.length == 0) {
+            context.getConnection().sendMessage(context.getChannel(), "Hello I am slim shady");
+        }
+        else if (args[0].equalsIgnoreCase("test")) {
+            context.sendMessage("hello there");
+        }
     }
 }
