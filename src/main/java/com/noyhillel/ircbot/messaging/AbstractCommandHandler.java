@@ -6,19 +6,17 @@ import org.jibble.pircbot.IrcException;
 import org.jibble.pircbot.PircBot;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by Noy on 6/21/2014.
  */
-public abstract class AbstractIRCBot extends PircBot implements Permission {
+public abstract class AbstractCommandHandler extends PircBot implements Permission {
 
     private final String name;
 
     private String permissionMessage;
 
-    public AbstractIRCBot(String name, String server, Integer port, String channel, String permName) throws IrcException, IOException {
+    public AbstractCommandHandler(String name, String server, Integer port, String channel, String permName) throws IrcException, IOException {
         this.setName(name);
         this.connect(server, port);
         this.joinChan(channel);
