@@ -32,9 +32,7 @@ public final class Bot {
             }
         }
         log.info("About to start connection thread!");
-        Thread thread = new Thread(new ConnectionRunnable(nick, server, port, channels));
-        thread.setDaemon(true);
-        thread.start();
+        new ConnectionRunnable(nick, server, port, channels).run();
         log.info("Started Connection thread!");
         Scanner penty = new Scanner(System.in);
         while (true) {

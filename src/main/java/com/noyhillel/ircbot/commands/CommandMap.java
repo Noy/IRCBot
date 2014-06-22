@@ -30,7 +30,7 @@ public class CommandMap {
         try {
             commands.get(commandName).onCommand(context, args);
         } catch (PermissionException e) {
-            context.sendMessage("You do not have permission to perform this command");
+            context.sendMessage(context.getSender() + ", you do not have permission to perform this command");
         }
     }
 }
