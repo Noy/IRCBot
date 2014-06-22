@@ -2,6 +2,7 @@ package com.noyhillel.ircbot.messaging;
 
 import com.noyhillel.ircbot.commands.Command;
 import com.noyhillel.ircbot.commands.Permission;
+import lombok.Data;
 import org.jibble.pircbot.IrcException;
 import org.jibble.pircbot.PircBot;
 
@@ -35,7 +36,7 @@ public abstract class AbstractCommandHandler extends PircBot implements Permissi
 
     @Override
     public String permissionName() {
-        return this.name;
+        return name;
     }
 
     @Override

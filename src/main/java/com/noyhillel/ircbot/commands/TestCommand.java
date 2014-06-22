@@ -9,7 +9,7 @@ import java.io.IOException;
  * Created by Noy on 6/21/2014.
  */
 @Command("hello")
-public class TestCommand extends AbstractCommandHandler {
+public final class TestCommand extends AbstractCommandHandler {
 
     public TestCommand() throws IOException, IrcException {
         super("ChrisThePirillo", "irc.geekshed.net", 6667, "#testing", "Yes");
