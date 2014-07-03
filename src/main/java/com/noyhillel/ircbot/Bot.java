@@ -11,6 +11,10 @@ import java.util.Scanner;
 
 @Log
 public final class Bot {
+
+    /*
+     * To run the bot, type:  java -cp <jar name> <main class> -nick=<nick> -<server> -<#channels>
+     */
     public static void main(String[] args) throws IOException, IrcException {
         print("Starting the bot..");
         OptionParser optionParser = new OptionParser();

@@ -10,5 +10,5 @@ public abstract class AbstractCommandHandler implements CommandHandler {
         handleCommand(context, args);
     }
 
-    protected void handleCommand(CommandContext commandContext, String[] args) {}
+    protected abstract void handleCommand(CommandContext commandContext, String[] args);
 }

@@ -1,6 +1,7 @@
 package com.noyhillel.ircbot;
 
 import com.noyhillel.ircbot.commands.impl.JoinChannelCommand;
+import com.noyhillel.ircbot.commands.impl.KickCommand;
 import com.noyhillel.ircbot.commands.impl.TestCommand;
 import lombok.AccessLevel;
 import lombok.Data;
@@ -27,5 +28,6 @@ public final class ConnectionRunnable implements Runnable {
         connection = new IRCConnection(nick, server, port, channels);
         connection.getCommandMap().registerCommand(new TestCommand());
         connection.getCommandMap().registerCommand(new JoinChannelCommand());
+        connection.getCommandMap().registerCommand(new KickCommand());
     }
 }
