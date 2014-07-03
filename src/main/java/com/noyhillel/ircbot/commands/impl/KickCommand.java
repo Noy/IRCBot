@@ -10,6 +10,7 @@ import com.noyhillel.ircbot.commands.SenderPerm;
  */
 @SenderPerm("Yes")
 public final class KickCommand extends AbstractCommandHandler {
+
     @Override
     public String getName() {
         return "kick";

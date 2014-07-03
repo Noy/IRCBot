@@ -14,8 +14,9 @@ public final class TestCommand extends AbstractCommandHandler {
     public void handleCommand(CommandContext context, String[] args) {
         if (args.length == 0) {
             context.getConnection().sendMessage(context.getChannel(), "Hello I am slim shady");
+            return;
         }
-        else if (args[0].equalsIgnoreCase("test")) {
+        if (args[0].equalsIgnoreCase("test")) {
             context.sendMessage("hello there");
         }
     }

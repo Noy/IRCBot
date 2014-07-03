@@ -8,6 +8,7 @@ import com.noyhillel.ircbot.commands.*;
  */
 @SenderPerm("Yes")
 public final class JoinChannelCommand extends AbstractCommandHandler {
+
     @Override
     public String getName() {
         return "join";
