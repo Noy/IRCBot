@@ -1,6 +1,6 @@
 package com.noyhillel.ircbot.commands;
 
-public interface CommandHandler {
+interface CommandHandler {
 
     /**
      * The command name.

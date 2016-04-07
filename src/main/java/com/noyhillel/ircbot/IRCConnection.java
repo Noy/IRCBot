@@ -16,7 +16,7 @@ public final class IRCConnection extends PircBot {
     @Getter private final CommandMap commandMap;
     @Getter private static IRCConnection instance;
 
-    public IRCConnection(String nick, String server, Integer port, String... channels) throws IrcException, IOException {
+    IRCConnection(String nick, String server, Integer port, String... channels) throws IrcException, IOException {
         changeNick(nick);
         setName(nick);
         setAutoNickChange(true);

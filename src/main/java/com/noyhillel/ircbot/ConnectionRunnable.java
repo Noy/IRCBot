@@ -1,5 +1,6 @@
 package com.noyhillel.ircbot;
 
+import com.noyhillel.ircbot.commands.impl.ChangeNameCommand;
 import com.noyhillel.ircbot.commands.impl.JoinChannelCommand;
 import com.noyhillel.ircbot.commands.impl.KickCommand;
 import com.noyhillel.ircbot.commands.impl.TestCommand;
@@ -13,7 +14,7 @@ import java.util.Arrays;
 
 @Data
 @Log
-public final class ConnectionRunnable implements Runnable {
+final class ConnectionRunnable implements Runnable {
     private final String nick;
     private final String server;
     private final Integer port;
@@ -29,5 +30,6 @@ public final class ConnectionRunnable implements Runnable {
         connection.getCommandMap().registerCommand(new TestCommand());
         connection.getCommandMap().registerCommand(new JoinChannelCommand());
         connection.getCommandMap().registerCommand(new KickCommand());
+        connection.getCommandMap().registerCommand(new ChangeNameCommand());
     }
 }
